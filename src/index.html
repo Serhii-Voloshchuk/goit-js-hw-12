@@ -2,21 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
-    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Search Pictures</title>
+    <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
-    <div id="loader" class="loader hidden"></div>
-    <form id="search-form">
-      <input type="text" name="searchQuery" placeholder="Search images..." required>
-      <button type="submit">Search</button>
-  </form>
-  <div class="gallery"></div>
-  <button id="load-more" class="hidden">Load more</button>
-<div id="loader" class="hidden">Loading...</div>
-
-  <script type="module" src="./main.js"></script>
+    <div class="container">
+      <div class="form-container">
+        <form action="form" class="form">
+          <input type="text" name="input" placeholder="Search images..." />
+          <button type="submit" class="search-button">Search</button>
+        </form>
+      </div>
+      <span class="loader"></span>
+      <div class="gallery-container">
+        <ul class="gallery"></ul>
+        <button type="button" class="load-more-button">Load more</button>
+      </div>
+    </div>
+    <script src="./main.js" type="module"></script>
   </body>
 </html>
