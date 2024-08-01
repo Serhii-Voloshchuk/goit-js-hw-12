@@ -1,5 +1,5 @@
-import createHttpRequest from './js/pixabay-api';
-import addImagesToHtml from './js/render-functions';
+import createHttpRequest from './js/pixabay-api.js';
+import addImagesToHtml from './js/render-functions.js';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
@@ -33,7 +33,7 @@ async function searchImagesFu(event) {
     return;
   }
 
-  loader.style.display = 'block';
+  loader.classList.remove('hidden');
 
   const options = {
     params: {
@@ -48,7 +48,7 @@ async function searchImagesFu(event) {
 
   try {
     const data = await createHttpRequest(options);
-    loader.style.display = 'none';
+    loader.classList.add('hidden');
 
     if (data.hits.length === 0) {
       iziToast.error({
@@ -58,26 +58,26 @@ async function searchImagesFu(event) {
       loadMoreButton.style.display = 'none';
     } else {
       addImagesToHtml(data.hits);
-      loadMoreButton.style.display = 'block';
+      loadMoreButton.classList.remove('hidden');
       totalHits = data.totalHits;
-      totalPagesToLoad = totalHits / 15;
+      totalPagesToLoad = Math.ceil(totalHits / 15);
     }
   } catch (error) {
-    loader.style.display = 'none';
+    loader.classList.add('hidden');
     iziToast.error({
       title: '',
       message: `Error fetching images: ${error.message || error}`,
     });
   } finally {
     if (totalHits < 15) {
-      loadMoreButton.style.display = 'none';
+      loadMoreButton.classList.add('hidden');
     }
     form.reset();
   }
 }
 
 async function loadMoreImages() {
-  loader.style.display = 'block';
+  loader.classList.remove('hidden');
   currentPage += 1;
 
   const options = {
@@ -93,7 +93,7 @@ async function loadMoreImages() {
 
   try {
     const data = await createHttpRequest(options);
-    loader.style.display = 'none';
+    loader.classList.add('hidden');
 
     addImagesToHtml(data.hits);
 
@@ -104,14 +104,14 @@ async function loadMoreImages() {
       behavior: 'smooth',
     });
   } catch (error) {
-    loader.style.display = 'none';
+    loader.classList.add('hidden');
     iziToast.error({
       title: '',
       message: `Error fetching images: ${error.message || error}`,
     });
   } finally {
     if (currentPage >= totalPagesToLoad) {
-      loadMoreButton.style.display = 'none';
+      loadMoreButton.classList.add('hidden');
       iziToast.info({
         title: '',
         message: "We're sorry, but you've reached the end of search results.",
