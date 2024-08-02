@@ -20,7 +20,7 @@ loadMoreButton.addEventListener('click', loadMoreImages);
 async function searchImagesFu(event) {
   event.preventDefault();
 
-  searchQuery = form.elements.input.value.trim(); // Corrected to get input value
+  searchQuery = form.elements.input.value.trim();
   currentPage = 1;
   gallery.innerHTML = '';
 
